@@ -134,7 +134,7 @@
 \fancyhead{}\fancyfoot{} % clears the headers/footers
 \fancyhead[L]{\textbf{AER E 322}}
 \fancyhead[C]{\textbf{Aerospace Structures Pre-Laboratory}\\
-			  \textbf{Lab <lab number> <lab name>}\\
+			  \textbf{Lab 03 Riveted Joint Design, Fabrication and Testing}\\
 			  Section 4 Group 2\\
 			  Matthew Mehrtens\\
 			  \today}
@@ -143,6 +143,85 @@
 
 \begin{document}
 \section*{Question 1} \label{question_1}
-% TODO
+\textit{Review Week 4 lecture materials and MIL-R-47196A standard thoroughly.}
+
+\section*{Question 2} \label{question_2}
+\textit{(80 pts) A pre-specified design of 2-2 rivet pattern is given in Fig. 1 for a riveted sample consisting of two overlapped 2” by 8” test panels.  The thickness of each test panel is 0.025” and hole diameter (i.e. rivet diameter) is 1/8”.  Your first task of the prelab is to evaluate the test panel’s joint efficiency for each of the four failure modes as described in Week 4 lecture notes, particularly in the workout example on pages 18-28.  Which failure will happen first and why? Next, for each failure mode, predict the maximum load that can cause that type of failure.  For tension failure mode, calculate the maximum load and corresponding stress for each row separately, as demonstrated in Part 3 of the workout example.  Use the material properties provided below.}
+
+Based on the output of my script shown in Listing \ref{code:rivet-analysis-2by2.m}, here are the predicted efficiencies:
+
+\begin{align*}
+\eta_s&=\num{0.6545} \\
+\eta_b&=\num{0.463} \\
+\eta_{to}&=\num{0.6667} \\
+\eta_{t1}&=\num{0.875} \\
+\eta_{t2}&=\num{1.75}
+\end{align*}
+
+Based on these efficiencies, bearing failure, $\eta_b$, will occur first since it has the lowest efficiency, \ie the system handles bearing loads the least efficiency.
+
+The maximum loads that can cause each type of failure are listed below. These were also calculated using Listing \ref{code:rivet-analysis-2by2.m}.
+
+\begin{align*}
+F_s&=\qty{883.6}{lb} \\
+F_b&=\qty{625}{lb} \\
+F_{to}&=\qty{900}{lb} \\
+F_{t1}&=\qty{1181}{lb} \\
+F_{t2}&=\qty{590.6}{lb} \\
+\sigma_{t1}&=\qty{27}{ksi} \\
+\sigma_{t2}&=\qty{13.5}{ksi}
+\end{align*}
+
+Based on these data, the system will fail at \qty{625}{lb} due to bearing failure.
+
+\section*{Question 3} \label{question_3}
+\textit{(120 pts) Based on what you find in Section 2. above, redesign the joint for better strength within the same overlapped area.  You may want to consider popular rivet patterns such as 1-3-1 and 2-1-2 or higher density like 2-3-2 and 3-3-3.  You can use as many rivets as you like but remember that too many rivets can actually weaken the joint (remember the design rule of thumb on page 17 of lecture notes).  Calculate the joint efficiency and predict how and under what load your new design will fail in each failure mode, just like what you did in Section 2.  You don't necessarily need to follow the minimum pitch and edge margins specified in MIL-R-47196A, but if you do decide to disregard standard practice, you should justify why.  You will also need to be able to justify if you will take different approaches in redesigning the joint.}
+
+Using the my Rivet Analysis script, Listing \ref{code:rivet-analysis-designed.m}, the best design I could come up with is a four by two pattern shown in Figure \ref{fig:my-design}.
+
+\begin{figure}[!htbp]
+\centering
+\includegraphics[width=4in]{images/my-design}
+\caption{My rivet pattern design.}
+\label{fig:my-design}
+\end{figure}
+
+The efficiencies are listed below:
+
+\begin{align*}
+\eta_s&=\num{1.309} \\
+\eta_b&=\num{0.9259} \\
+\eta_{to}&=\num{1.333} \\
+\eta_{t1}&=\num{0.75} \\
+\eta_{t2}&=\num{1.5}
+\end{align*}
+
+Based on these efficiencies, I expect my system to fail due to tension stress in the first row (relative to the loading) since it has the lowest efficiency of all the failure modes. The maximum loads supported by each mode of failure are:
+
+\begin{align*}
+F_s&=\qty{1767}{lb} \\
+F_b&=\qty{1250}{lb} \\
+F_{to}&=\qty{1800}{lb} \\
+F_{t1}&=\qty{1012}{lb} \\
+F_{t2}&=\qty{506.2}{lb} \\
+\sigma_{t1}&=\qty{27}{ksi} \\
+\sigma_{t2}&=\qty{13.5}{ksi}
+\end{align*}
+
+Given these maximum forces, I estimate my rivet pattern will be able to sustain a maximum of \qty{1012}{lb} before it fails due to tensile stress in the first row of rivets.
+
+\section*{Code} \label{code}
+
+\lstinputlisting[label={code:rivet-analysis-2by2.m},caption={Question 2 Script: \texttt{Rivet-Analysis-2by2.m}.},language=Matlab]{src/Rivet-Analysis-2by2.m}
+
+\lstinputlisting[label={code:rivet-analysis-designed.m},caption={Question 3 Script: \texttt{Rivet-Analysis-Designed.m}.},language=Matlab]{src/Rivet-Analysis-Designed.m}
+
+\lstinputlisting[label={code:calc-eta-shear.m},caption={Function to calculate $\eta_s$: \texttt{calc-eta-shear.m}.},language=Matlab]{src/calc-eta-shear.m}
+
+\lstinputlisting[label={code:calc-eta-bearing.m},caption={Function to calculate $\eta_b$: \texttt{calc-eta-bearing.m}.},language=Matlab]{src/calc-eta-bearing.m}
+
+\lstinputlisting[label={code:calc-eta-tearout.m},caption={Function to calculate $\eta_to$: \texttt{calc-eta-tearout.m}.},language=Matlab]{src/calc-eta-tearout.m}
+
+\lstinputlisting[label={code:calc-eta-tension.m},caption={Function to calculate $\eta_t$: \texttt{calc-eta-tension.m}.},language=Matlab]{src/calc-eta-tension.m}
 
 \end{document}
