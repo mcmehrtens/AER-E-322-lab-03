@@ -14,9 +14,9 @@ N = sum(layout);    % []
 N_e = layout(2);    % []
 
 % Material Characteristics
-sigma_tu    = 27*10^3;  % [psi]
-sigma_bu    = 50*10^3;  % [psi]
-tau_su      = 18*10^3;  % [psi]
+sigma_tu    = 27e3;  % [psi]
+sigma_bu    = 50e3;  % [psi]
+tau_su      = 18e3;  % [psi]
 tau_sup     = tau_su;   % [psi]
 
 % Calculate Joint Efficiencies
